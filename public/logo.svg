@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SteadPal">
+  <rect x="0.5" y="0.5" width="63" height="63" rx="15.5" fill="#ffffff" stroke="#dfe5f0" stroke-width="1"/>
+  <!-- Two incomes: each starts as an irregular wave and becomes a steady line.
+       They come from opposite sides, one above and one below, like two hands about to shake,
+       with the dot between them. The bottom line is the top line turned 180 degrees. -->
+  <path d="M5 27c2.8-6.4 5.6-6.4 8.3 0s5.5 6.4 8.3 0c1.5-3.1 3.1-4.4 5-4.4H43" fill="none" stroke="#14213d" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5 27c2.8-6.4 5.6-6.4 8.3 0s5.5 6.4 8.3 0c1.5-3.1 3.1-4.4 5-4.4H43" transform="rotate(180 32 32)" fill="none" stroke="#14213d" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="32" r="3.4" fill="#1f6feb"/>
+</svg>
