@@ -1,7 +1,8 @@
 // Quick checks: node test.js
-const assert = require("assert");
-const E = require("./engine/core");
-const base = require("./data/ana.json");
+import assert from "node:assert";
+import { readFileSync } from "node:fs";
+import * as E from "./core.js";
+const base = JSON.parse(readFileSync(new URL("../data/ana.json", import.meta.url)));
 const clone = () => JSON.parse(JSON.stringify(base));
 
 // 1) Demo numbers stay fixed

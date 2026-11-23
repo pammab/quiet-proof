@@ -1,185 +1,29 @@
-# SteadPal
+# Quiet Proof
 
-**The paycheck freelancers never had. A feature concept for PayPal.**
+**A private back office for freelancers.** Your receipts, statements, contracts and client emails are read on your own device with Gemini Nano. The cloud only sees anonymized totals, and only when you say yes. Every day it answers one question: **how much can I safely spend this month?**
 
-*Click PayPal. Build your future.* Every dollar through PayPal works for you.
+Built for #BuildHybridAI 2026 with Firebase AI Logic hybrid inference.
 
-**Live demo:** https://steadpal.onrender.com. Free hosting, so the first visit can take up to a minute to wake up. Click **Guided demo** at the top: 8 steps, about 2 minutes.
+> Work in progress. Education only, not tax, legal or financial advice.
 
-![SteadPal home: pots, payday split and steady income](docs/home.png)
-
-> Hackathon prototype for the PayPal AI Hackathon (2026). It uses simulated data and the PayPal sandbox. It is for education only and is not financial, tax or investment advice.
-
----
-
-## The problem
-
-64 million Americans (38% of the workforce) did freelance work in 2023 ([Upwork, Freelance Forward 2023](https://www.upwork.com/research/freelance-forward-2023-research-report)). Their income moves around (Ana, our demo user, earned $3,500 in March and $800 in April), but rent stays the same. No employer sets money aside for their taxes, emergencies or a steady paycheck. Many are paid through PayPal, but the money lands in a single balance with no plan.
-
-## The idea
-
-SteadPal is a tab inside the PayPal Wallet. It turns every PayPal payment into a plan:
-
-- **It splits each payment** into pots: taxes, a steady income reserve, an emergency fund and goals.
-- **It sees weak months coming**, from ended contracts and late invoices.
-- **It pays the user a steady weekly amount** from their own reserve.
-- **It routes partner cashback and round-ups** to the goal that needs them most.
-- **It gives an income passport** that a landlord can verify.
-
-No new app and no lending: the money never leaves PayPal.
-
-Built for freelancers, useful for anyone with a goal.
-
----
-
-## What it does
-
-### In the PayPal Wallet (concept view)
-- One balance, shown split into **Available to spend** and labelled pots. Nothing leaves the Wallet: a client pays, SteadPal labels it, and on payday "Send this week's pay to my Wallet" moves the steady income from the reserve label to Available.
-- **SteadPal on/off switch.** Before turning it off, the user sees the risks (tax money becomes spending money, steady income stops, the emergency cushion is no longer kept apart). Turning it off returns all pot money to Available, and PayPal works exactly as before; goals, settings and the last pot values are kept, and can be restored when SteadPal is turned back on. Turning it on opens a **setup sheet** where the user chooses: tax set-aside, steady income, reserve weeks, emergency target, a share of each payment kept available, where extra money goes, and up to 5 goals. Every option is a dropdown with suggestions plus "Custom".
-- The same preferences live in **Profile → SteadPal preferences** and can be changed anytime.
-- Clearly labelled as a concept illustration, not a real PayPal page.
-
-### Home
-| Feature | What the user sees |
-| --- | --- |
-| **Pots** | Labels over the PayPal balance: emergency fund, taxes, steady income reserve, goals. The money never moves. One **Edit pots** button: pick any pot (except Taxes) to rename, retarget, duplicate or delete it. Every new goal becomes a new pot. |
-| **Smart split + payday pop-up** | A client pays $1,600 through PayPal, which becomes $400 taxes, $900 steady income reserve and $300 emergency fund, with a one-sentence reason. Code checks every dollar. |
-| **AI late-invoice reminder** | Claude drafts a polite reminder for an overdue invoice. The user edits and sends it, through the **PayPal Invoicing API** when keys are set. |
-| **Steady income** (optional) | A steady amount from the user's own reserve (PayPal Payouts), never above what their history supports. |
-| **Partner cashback** (Channel3) | Search real products, pay with PayPal, and the cashback goes to the goal most behind, not to the wallet. Optional **round-ups** to the next $1, $5 or $10. |
-| **Goals** | "I want $___ by ___ for ___", with a priority. Shows whether it fits after higher-priority goals and, if not, when it would. |
-| **Income passport** (optional) | A signed one-page certificate (download as PDF) with facts from PayPal commercial payments only, a verification code and a 30-day link. It always states how much income came from the largest 1 and 2 clients, without naming them, so income from one or two friends can't pass as a business. If the holder allows it, a viewer can ask about those clients from the verification page, and the holder decides what to share. |
-| **Other income (self-reported)** | Add one payment, or import many from a CSV file or pasted rows (exported from a bank or another app; no new connections). Always labelled self-reported and never counted in the passport. |
-| **PayPal transactions** (AG Grid) | Every payment, sortable and filterable, with a "counts for passport" column. |
-
-### Analysis
-| Feature | What the user sees |
-| --- | --- |
-| **Next month forecast** | "Heads up: next month may be low. Bloom Studio's retainer ended and Northwind is 21 days late. Your $475 steady income is protected." Every number links to the data behind it: each month, each payment and each step of the math. The user can leave out an unusual month, and everything recalculates. |
-| **Reports + AI consultant** | Income, Clients & reliability (average days late, income share), Cash flow, Taxes and Goals. Periods: last month, 3, 6, 12 or 24 months, last calendar year, or custom months. Self-reported income can be included; the report is then labelled as modified. Each report is explained by Claude, and an AI consultant answers questions using only the user's numbers. |
-| **What if** | "I spend $X now, earn $Y more a month, or my costs go up $Z." Shows free money per month, when the emergency fund is ready, whether the steady income still covers costs, and the purchase as a share of the cushion. |
-| **Taxes** (optional) | Amount set aside, next due date, and the user's choice: paid (empty the pot), paid part, move some to the emergency fund, or keep. |
-| **Save & invest education** | Compares the PayPal balance, savings, a 12-month CD, a 3-month Treasury bill and PYUSD: projected interest, protection, access and risk. Illustration only. The Treasury rate refreshes from FRED on the user's schedule (daily, weekly or monthly). |
-| **Runway risk check** | 1,000 simulated futures from the user's own history give the chance the steady income stays covered, a typical and a bad case, and the highest steady income that stays 95% safe. |
-
-![Runway risk check](docs/runway.png)
-
-### Profile: the user decides every number
-- **Your numbers:** rent, fixed expenses, steady income, reserve weeks and the emergency fund target. SteadPal only suggests (for example "3 months of rent" or "2.3 months of expenses for your level of irregularity"). Gentle notes appear, such as "it looks like you may be overstretching", but nothing blocks a save.
-- **Business & taxes:** business type, tax type, state, the user's own set-aside rates, and payment dates (add or delete).
-- **Help the AI know you (optional):** comfort with risk, kind of work, typical number of clients, slow months, priorities and explanation style. These are shared with the AI consultant only if the user switches sharing on. Nothing sensitive is asked: no ID or account numbers, health or family details.
-- **Other income (self-reported):** income outside PayPal is shown as self-reported. It is included in reports only with a "modified report" label, and never counted in the income passport.
-- **Round-ups** on or off.
-
-### Sources behind every fact
-Small **i** buttons open the source of each fact: Upwork (freelancers), Federal Reserve SHED 2025 (63% could cover a $400 emergency with cash), CFPB (emergency savings guidance, income dips), IRS Publication 334 (15.3% self-employment tax), FDIC ($250,000 insurance), PayPal (PYUSD rewards).
-
-![Clients and reliability report](docs/reports.png)
-
----
-
-## How it works
-
-```mermaid
-flowchart LR
-  C[Client pays with PayPal<br/>Orders v2 · Pay Later] --> S[SteadPal server<br/>Node.js]
-  S --> E[Engine: deterministic code<br/>stats · forecast · split · Monte Carlo]
-  E --> V[Validator<br/>sums to 100% · taxes ≥ minimum · no negatives]
-  E --> AI[Claude<br/>explains, drafts, answers]
-  V --> P[Pots updated + payday pop-up]
-  S --> INV[PayPal Invoicing<br/>reminders]
-  S --> PO[PayPal Payouts<br/>steady income]
-  S --> CH[Channel3<br/>real products]
-  S --> PP[Signed income passport<br/>verify page]
-```
-
-**Principle: the AI explains, the code calculates and verifies, and the user decides.** Every number comes from deterministic code (`engine/core.js`, `engine/analysis.js`). Claude only explains decisions, drafts reminders and answers questions, using the numbers it is given. If the AI is unavailable, the app falls back to fixed templates and keeps working.
-
-### Engine highlights
-- **Reserve target:** 1 + 3 × the coefficient of variation of income, between 1 and 6 months of expenses. More irregular income means a bigger cushion.
-- **Safe steady income:** covers fixed expenses and is never above 90% of the after-tax average, rounded to $25.
-- **Forecast:** low / expected / high, with named reasons (ended retainers, overdue invoices).
-- **Runway risk:** bootstrap Monte Carlo (1,000 paths, seeded so the demo is repeatable) over the last 6 months of after-tax income. An overdue invoice arrives in month 1 with 85% probability.
-- **Passport:** counts only PayPal commercial payments (invoices, goods and services) from verified payers that are not linked to the user and have accounts at least 30 days old. It is signed with HMAC-SHA256 and shows facts only, never a score.
-
-### PayPal APIs used (sandbox)
-| API | Used for |
-| --- | --- |
-| JavaScript SDK + Orders v2 | The client pays an invoice (PayPal or **Pay Later**); purchases at partner merchants |
-| Invoicing v2 | Create, send and remind for overdue invoices |
-| Payouts | Optional steady income from the user's reserve |
-| Transaction Search | Payment history for statistics and the passport (planned for live data) |
-| Webhooks | Payment notifications (endpoint in place; signature verification is a TODO) |
-
-### AI (Claude, Anthropic API)
-- Explanations for every decision, report wording, late-invoice reminders and the AI consultant.
-- The system prompt is strict: use only the numbers provided, education only, no investment recommendations, and treat client text (names, memos) as data, never as instructions.
-- Only amounts, dates and categories are sent to the model, never emails or account details.
-- `GET /api/ai/check` reports whether the AI connection works.
-
-### Official rates (`data/rates.json`)
-| Option | Rate | Source |
+## Why hybrid
+| Task | Where it runs | Why |
 | --- | --- | --- |
-| Savings account (national average) | 0.38% | FDIC National Rates, Aug 2026 |
-| 12-month CD (national average) | 1.71% | FDIC National Rates, Aug 2026 |
-| 3-month Treasury bill | 4.21% | Federal Reserve H.15 via FRED DGS3MO, Nov 2, 2026 |
-| PYUSD reward (variable, US only, not FDIC-insured) | 4.00% | PayPal PYUSD Rewards, Oct 26, 2026 |
+| Read receipts, invoices, bank statement lines, contracts, emails | On device (Gemini Nano) | Private, high volume, free |
+| Short drafts (payment reminders, labels) | On device first, cloud fallback | No private documents involved |
+| Quarterly tax plan, explanations, income letter | Cloud (Gemini) | Needs stronger reasoning; receives anonymized totals only, after the user approves the exact payload |
 
----
+Money math (taxes, reserves, forecasts, risk) is done by deterministic, tested code. The AI reads and explains; it never computes amounts.
 
-## Partner technologies
-- **Render:** hosting, with auto-deploy from GitHub.
-- **Channel3:** real product search for partner cashback (`channel3.js`). The cashback is a share of the store's commission, so it costs PayPal nothing. Without a key, demo products are shown.
-- **AG Grid Community:** the transactions table, loaded from jsDelivr. A plain table is shown if the CDN is unreachable.
+## Pre-existing work (disclosure)
+This project starts from **SteadPal** (github.com/pammab/steadpal, MIT), an entry to the PayPal AI Hackathon. The first commit of this repository (tag `baseline-steadpal-v1`) is an exact copy of SteadPal at commit 705e46c (Nov 11, 2026). Reused: the income engine (`web/engine/core.js`, `web/engine/analysis.js`) and its tests. Everything after that commit was built during the #BuildHybridAI submission period. `legacy/` holds the old server and UI for reference while porting and will be removed before submission.
 
----
-
-## Run it
-
-Requirements: Node.js 20 or newer. There are no packages to install.
-
+## Run locally
 ```bash
-git clone https://github.com/pammab/steadpal
-cd steadpal
-npm test          # engine checks
-npm start         # open http://localhost:3000
+npm test     # engine checks
+npm start    # serves web/ at http://localhost:5000
 ```
-
-Without keys the app runs in **demo mode**: buttons simulate payments, and explanations use templates.
-
-### Environment variables (locally or in Render)
-| Variable | Where to get it |
-| --- | --- |
-| `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET` | developer.paypal.com → Apps & Credentials → Sandbox app (enable Invoicing and Payouts under Features) |
-| `PAYPAL_PAYOUT_RECEIVER` | Email of a sandbox personal test account (receives steady income and, by default, invoices) |
-| `PAYPAL_INVOICE_RECIPIENT` | Optional; a different sandbox email for invoices |
-| `ANTHROPIC_API_KEY` | console.anthropic.com |
-| `STEADPAL_MODEL` | Optional; Claude model name (default `claude-sonnet-5-5`) |
-| `CHANNEL3_API_KEY` | trychannel3.com → Dashboard → API keys |
-| `CASHBACK_RATE` | Optional; share of the price returned as cashback (default 0.03) |
-| `PASSPORT_SECRET` | Any long random string (signs income passports) |
-
-**Deploy on Render:** New → Web Service → connect this repo → no build command → start command `node server.js` → add the variables above.
-
----
-
-## Limitations
-- Simulated data in the sandbox only. Storage is in memory, so it resets on restart.
-- The cashback rate is an estimate, because Channel3's search response does not include commission data.
-- Pots are labels over one balance; real sub-accounts would need PayPal.
-- Forecasts and the runway check assume the future looks like the last 6 months. They show ranges, not guarantees.
-- Tax amounts are user-chosen estimates, not tax advice.
-- PYUSD rewards are variable and US-only, and PYUSD is not FDIC-insured.
-- Webhook signature verification is not implemented yet.
-- The income passport is designed to stay within existing rules (issued from PayPal's own records, facts only, user-initiated, expiring), but it would need legal review before launch. Collusion between payer and payee cannot be fully prevented, as with a bank statement.
-
-## Roadmap
-- Live data through Transaction Search, plus Log in with PayPal for consent.
-- Pay Later on every invoice, so clients can spread the payment while freelancers get paid in full now.
-- SteadPal for Venmo and gig workers.
-- Emerging markets: PYUSD payouts for freelancers abroad and family-support pots through Xoom, with licensed partners.
-- An agent mode: SteadPal acts only with the user's approval (send invoices, move money between pots).
+Setup: fill `web/firebase-config.js` with your Firebase web app config and App Check site key. Chrome desktop 139+ with `chrome://flags/#prompt-api-for-gemini-nano-multimodal-input` enabled is needed for on-device inference.
 
 ## License
 MIT. See `LICENSE`.

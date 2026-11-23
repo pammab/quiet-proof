@@ -1,12 +1,11 @@
 {
-  "name": "steadpal",
-  "version": "0.1.0",
-  "description": "SteadPal: the paycheck freelancers never had. A feature concept for PayPal.",
-  "main": "server.js",
+  "name": "quiet-proof",
+  "version": "0.2.0",
+  "description": "Quiet Proof: freelancers prove their income and their work without exposing their documents or their clients secrets. Documents are read on device with Gemini Nano.",
+  "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "demo": "node demo.js",
-    "test": "node test.js"
+    "test": "node web/engine/test.mjs",
+    "start": "npx --yes serve web -l 5000"
   },
   "engines": { "node": ">=20" },
   "license": "MIT"

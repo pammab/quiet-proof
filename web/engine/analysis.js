@@ -1,6 +1,6 @@
 // Analysis engine: runway risk (Monte Carlo), reports, investing education, taxes, round-ups.
 // Deterministic code only. The AI explains these numbers; it never computes them.
-const E = require("./core");
+import * as E from "./core.js";
 
 const round = (x, step = 1) => Math.round(x / step) * step;
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
@@ -198,4 +198,4 @@ function resolvePeriod(data, spec = {}) {
   return { months, label: n === 1 ? `Last month (${months[0]})` : `Last ${n} months` };
 }
 
-module.exports = { forecastEvidence, resolvePeriod, runwayRisk, clientReliability, taxStatus, report, investForecast, roundUp, daysBetween };
+export { forecastEvidence, resolvePeriod, runwayRisk, clientReliability, taxStatus, report, investForecast, roundUp, daysBetween };

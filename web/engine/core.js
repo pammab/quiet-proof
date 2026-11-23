@@ -460,7 +460,7 @@ function monthlyReport(data) {
   };
 }
 
-module.exports = {
+export {
   statsMonths, emergencyGoal, payPeriod,
   lastMonths, monthlyIncome, incomeStats, forecastNextMonth, reserveTarget, safeWeeklySalary,
   goalStatus, planSplit, validatePlan, routeCashback, whatIfPurchase, passportSummary, monthlyReport,
